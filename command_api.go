@@ -1,6 +1,7 @@
 package api_json_types
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/myfantasy/mft"
@@ -99,5 +100,5 @@ type CommandDescription struct {
 
 type Api interface {
 	AllowedCommands() []CommandDescription
-	DoRequest(req *CommandRequest) *CommandResponce
+	DoRequest(ctx context.Context, req *CommandRequest) *CommandResponce
 }
