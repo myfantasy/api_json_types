@@ -1,4 +1,4 @@
-package apijsontypes
+package api_json_types
 
 import (
 	"encoding/json"
