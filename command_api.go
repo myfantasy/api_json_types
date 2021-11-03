@@ -7,11 +7,15 @@ import (
 	"github.com/myfantasy/mft"
 )
 
+type ObjectType string
+type Action string
+
 type CommandRequest struct {
-	ObjectName  string          `json:"object,omitempty"`
-	CommandName string          `json:"name,omitempty"`
-	Params      json.RawMessage `json:"params,omitempty"`
-	User        string          `json:"user,omitempty"`
+	ObjectType ObjectType      `json:"object_type,omitempty"`
+	Action     Action          `json:"name,omitempty"`
+	ObjectName string          `json:"object_name,omitempty"`
+	Params     json.RawMessage `json:"params,omitempty"`
+	User       string          `json:"user,omitempty"`
 }
 
 type CommandResponce struct {
@@ -33,30 +37,32 @@ func (cr *CommandRequest) Unmarshal(v interface{}) *mft.Error {
 	return nil
 }
 
-func CreateRequest(objectName string, commandName string, v interface{}) (cr *CommandRequest, err *mft.Error) {
+func CreateRequest(objectType ObjectType, action Action, objectName string, v interface{}) (cr *CommandRequest, err *mft.Error) {
 	b, er0 := json.Marshal(v)
 	if er0 != nil {
 		return nil, mft.GenerateErrorE(20000010, er0)
 	}
 
 	return &CommandRequest{
-		ObjectName:  objectName,
-		CommandName: commandName,
-		Params:      b,
+		ObjectType: objectType,
+		ObjectName: objectName,
+		Action:     action,
+		Params:     b,
 	}, nil
 }
 
-func CreateUserRequest(objectName string, commandName string, v interface{}, userName string) (cr *CommandRequest, err *mft.Error) {
+func CreateUserRequest(objectType ObjectType, action Action, objectName string, v interface{}, userName string) (cr *CommandRequest, err *mft.Error) {
 	b, er0 := json.Marshal(v)
 	if er0 != nil {
 		return nil, mft.GenerateErrorE(20000011, er0)
 	}
 
 	return &CommandRequest{
-		ObjectName:  objectName,
-		CommandName: commandName,
-		Params:      b,
-		User:        userName,
+		ObjectType: objectType,
+		ObjectName: objectName,
+		Action:     action,
+		Params:     b,
+		User:       userName,
 	}, nil
 }
 
