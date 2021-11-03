@@ -12,7 +12,7 @@ type Action string
 
 type CommandRequest struct {
 	ObjectType ObjectType      `json:"object_type,omitempty"`
-	Action     Action          `json:"name,omitempty"`
+	Action     Action          `json:"action,omitempty"`
 	ObjectName string          `json:"object_name,omitempty"`
 	Params     json.RawMessage `json:"params,omitempty"`
 	User       string          `json:"user,omitempty"`
@@ -99,9 +99,9 @@ func CreateResponce(v interface{}, err *mft.Error) (cr *CommandResponce) {
 }
 
 type CommandDescription struct {
-	ObjectName  string `json:"object_name,omitempty"`
-	Name        string `json:"name,omitempty"`
-	Description string `json:"description,omitempty"`
+	ObjectType  ObjectType `json:"object_type,omitempty"`
+	Action      Action     `json:"action,omitempty"`
+	Description string     `json:"description,omitempty"`
 }
 
 type Api interface {
